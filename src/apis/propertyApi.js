@@ -1,213 +1,79 @@
 import axios from "axios";
 
-const BASE_URL = "http://localhost:8021/api/projects"; // Replace with your backend URL if hosted elsewhere
+// Base URL of the API
+const API_BASE_URL = "http://localhost:8021/api/projects"; // Replace with your actual API URL
 
-// Project-related API functions
-// Create a new project
-export const createProject = async (projectData) => {
-  try {
-    const response = await axios.post(`${BASE_URL}/`, projectData);
-    return response.data;
-  } catch (error) {
-    handleError(error);
-  }
-};
-
-// Get a project by ID
-export const getProject = async (projectId) => {
-  try {
-    const response = await axios.get(`${BASE_URL}/${projectId}`);
-    return response.data;
-  } catch (error) {
-    handleError(error);
-  }
-};
-
-// Update a project by ID
-export const updateProject = async (projectId, projectData) => {
-  try {
-    const response = await axios.put(`${BASE_URL}/${projectId}`, projectData);
-    return response.data;
-  } catch (error) {
-    handleError(error);
-  }
-};
-
-// Delete a project by ID
-export const deleteProject = async (projectId) => {
-  try {
-    const response = await axios.delete(`${BASE_URL}/${projectId}`);
-    return response.data;
-  } catch (error) {
-    handleError(error);
-  }
-};
-
-// Get all projects
+/**
+ * Get all projects
+ * @returns {Promise} List of projects
+ */
 export const getAllProjects = async () => {
   try {
-    const response = await axios.get(`${BASE_URL}/`);
+    const response = await axios.get(API_BASE_URL);
     return response.data;
   } catch (error) {
-    handleError(error);
+    console.error("Error fetching projects:", error);
+    throw error;
   }
 };
 
-// Create a new phase for a project
-export const createPhase = async (projectId, phaseData) => {
+/**
+ * Get a project by ID
+ * @param {number} id - Project ID
+ * @returns {Promise} Project data
+ */
+export const getProjectById = async (id) => {
   try {
-    const response = await axios.post(
-      `${BASE_URL}/${projectId}/phases`,
-      phaseData
-    );
+    const response = await axios.get(`${API_BASE_URL}/${id}`);
     return response.data;
   } catch (error) {
-    handleError(error);
+    console.error(`Error fetching project with ID ${id}:`, error);
+    throw error;
   }
 };
 
-// Create a new bedroom for a project
-export const createBedroom = async (projectId, bedroomData) => {
+/**
+ * Create a new project
+ * @param {object} projectData - Data for the new project
+ * @returns {Promise} Created project ID
+ */
+export const createProject = async (projectData) => {
   try {
-    const response = await axios.post(
-      `${BASE_URL}/${projectId}/bedrooms`,
-      bedroomData
-    );
+    const response = await axios.post(API_BASE_URL, projectData);
     return response.data;
   } catch (error) {
-    handleError(error);
+    console.error("Error creating project:", error);
+    throw error;
   }
 };
 
-// Create a new additional feature for a project
-export const createAdditionalFeature = async (projectId, featureData) => {
+/**
+ * Update a project by ID
+ * @param {number} id - Project ID
+ * @param {object} projectData - Updated project data
+ * @returns {Promise} Success message
+ */
+export const updateProject = async (id, projectData) => {
   try {
-    const response = await axios.post(
-      `${BASE_URL}/${projectId}/features`,
-      featureData
-    );
+    const response = await axios.put(`${API_BASE_URL}/${id}`, projectData);
     return response.data;
   } catch (error) {
-    handleError(error);
+    console.error(`Error updating project with ID ${id}:`, error);
+    throw error;
   }
 };
 
-// Create new media for a project
-export const createMedia = async (projectId, mediaData) => {
+/**
+ * Delete a project by ID
+ * @param {number} id - Project ID
+ * @returns {Promise} Success message
+ */
+export const deleteProject = async (id) => {
   try {
-    const response = await axios.post(
-      `${BASE_URL}/${projectId}/media`,
-      mediaData
-    );
+    const response = await axios.delete(`${API_BASE_URL}/${id}`);
     return response.data;
   } catch (error) {
-    handleError(error);
+    console.error(`Error deleting project with ID ${id}:`, error);
+    throw error;
   }
-};
-
-// Builder-related API functions
-
-// Create a new builder
-export const createBuilder = async (builderData) => {
-  try {
-    const response = await axios.post(
-      "http://localhost:8021/api/builder/",
-      builderData
-    );
-    return response.data;
-  } catch (error) {
-    handleError(error);
-  }
-};
-
-// Get a builder by ID
-export const getBuilder = async (builderId) => {
-  try {
-    const response = await axios.get(
-      `http://localhost:8021/api/builder/${builderId}`
-    );
-    return response.data;
-  } catch (error) {
-    handleError(error);
-  }
-};
-
-// Update a builder by ID
-export const updateBuilder = async (builderId, builderData) => {
-  try {
-    const response = await axios.put(
-      `http://localhost:8021/api/builder/${builderId}`,
-      builderData
-    );
-    return response.data;
-  } catch (error) {
-    handleError(error);
-  }
-};
-
-// Delete a builder by ID
-export const deleteBuilder = async (builderId) => {
-  try {
-    const response = await axios.delete(
-      `http://localhost:8021/api/builder/${builderId}`
-    );
-    return response.data;
-  } catch (error) {
-    handleError(error);
-  }
-};
-
-// Get all builders
-export const getAllBuilders = async () => {
-  try {
-    const response = await axios.get("http://localhost:8021/api/builder/");
-    return response.data;
-  } catch (error) {
-    handleError(error);
-  }
-};
-
-// Add a project to a builder
-export const addProjectToBuilder = async (builderId, projectData) => {
-  try {
-    const response = await axios.post(
-      `http://localhost:8021/api/builder/${builderId}/projects`,
-      projectData
-    );
-    return response.data;
-  } catch (error) {
-    handleError(error);
-  }
-};
-
-// Add media to a builder
-export const addMediaToBuilder = async (builderId, mediaData) => {
-  try {
-    const response = await axios.post(
-      `http://localhost:8021/api/builder/${builderId}/media`,
-      mediaData
-    );
-    return response.data;
-  } catch (error) {
-    handleError(error);
-  }
-};
-
-// Add additional information to a builder
-export const addAdditionalInfoToBuilder = async (builderId, additionalInfo) => {
-  try {
-    const response = await axios.post(
-      `http://localhost:8021/api/builder/${builderId}/additional-info`,
-      additionalInfo
-    );
-    return response.data;
-  } catch (error) {
-    handleError(error);
-  }
-};
-
-// Handle errors
-const handleError = (error) => {
-  console.error("API call failed:", error.response?.data || error.message);
-  throw error.response?.data || error.message;
 };
