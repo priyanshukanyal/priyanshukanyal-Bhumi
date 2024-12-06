@@ -16,7 +16,7 @@ function PropertyView() {
           fontFamily: "Arial, sans-serif",
         }}
       >
-        Bhumi Property Page Coming Soon!!
+        Bhumi Page Coming Soon!!
       </h1>
     </div>
   );

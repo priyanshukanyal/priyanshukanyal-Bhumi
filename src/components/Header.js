@@ -63,6 +63,21 @@ const Header = () => {
                   Add Property
                 </Link>
               </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/view-Property">
+                  View Role
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/view-Property">
+                  View Property
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/view-Builder">
+                  View Builder
+                </Link>
+              </li>
             </ul>
           </div>
         </div>

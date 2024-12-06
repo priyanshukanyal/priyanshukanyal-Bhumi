@@ -8,6 +8,7 @@ import AddRolePage from "./pages/AddRolePage";
 import ProjectView from "./pages/ProjectViewPage.js"; // ProjectView component
 import AddProject from "./pages/addNewProject.js";
 import PropertyView from "./pages/PropertyView.js";
+import ViewBuilders from "./pages/ViewBuilders.js";
 function App() {
   return (
     <Router>
@@ -21,6 +22,8 @@ function App() {
           <Route path="/add-Project" element={<AddProject />} />
           <Route path="/view-Project" element={<ProjectView />} />
           <Route path="/view-Property" element={<PropertyView />} />
+          <Route path="/view-Property" element={<PropertyView />} />
+          <Route path="/view-Builder" element={<ViewBuilders />} />
         </Routes>
       </div>
     </Router>

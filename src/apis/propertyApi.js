@@ -2,6 +2,7 @@ import axios from "axios";
 
 const BASE_URL = "http://localhost:8021/api/projects"; // Replace with your backend URL if hosted elsewhere
 
+// Project-related API functions
 // Create a new project
 export const createProject = async (projectData) => {
   try {
@@ -97,6 +98,107 @@ export const createMedia = async (projectId, mediaData) => {
     const response = await axios.post(
       `${BASE_URL}/${projectId}/media`,
       mediaData
+    );
+    return response.data;
+  } catch (error) {
+    handleError(error);
+  }
+};
+
+// Builder-related API functions
+
+// Create a new builder
+export const createBuilder = async (builderData) => {
+  try {
+    const response = await axios.post(
+      "http://localhost:8021/api/builder/",
+      builderData
+    );
+    return response.data;
+  } catch (error) {
+    handleError(error);
+  }
+};
+
+// Get a builder by ID
+export const getBuilder = async (builderId) => {
+  try {
+    const response = await axios.get(
+      `http://localhost:8021/api/builder/${builderId}`
+    );
+    return response.data;
+  } catch (error) {
+    handleError(error);
+  }
+};
+
+// Update a builder by ID
+export const updateBuilder = async (builderId, builderData) => {
+  try {
+    const response = await axios.put(
+      `http://localhost:8021/api/builder/${builderId}`,
+      builderData
+    );
+    return response.data;
+  } catch (error) {
+    handleError(error);
+  }
+};
+
+// Delete a builder by ID
+export const deleteBuilder = async (builderId) => {
+  try {
+    const response = await axios.delete(
+      `http://localhost:8021/api/builder/${builderId}`
+    );
+    return response.data;
+  } catch (error) {
+    handleError(error);
+  }
+};
+
+// Get all builders
+export const getAllBuilders = async () => {
+  try {
+    const response = await axios.get("http://localhost:8021/api/builder/");
+    return response.data;
+  } catch (error) {
+    handleError(error);
+  }
+};
+
+// Add a project to a builder
+export const addProjectToBuilder = async (builderId, projectData) => {
+  try {
+    const response = await axios.post(
+      `http://localhost:8021/api/builder/${builderId}/projects`,
+      projectData
+    );
+    return response.data;
+  } catch (error) {
+    handleError(error);
+  }
+};
+
+// Add media to a builder
+export const addMediaToBuilder = async (builderId, mediaData) => {
+  try {
+    const response = await axios.post(
+      `http://localhost:8021/api/builder/${builderId}/media`,
+      mediaData
+    );
+    return response.data;
+  } catch (error) {
+    handleError(error);
+  }
+};
+
+// Add additional information to a builder
+export const addAdditionalInfoToBuilder = async (builderId, additionalInfo) => {
+  try {
+    const response = await axios.post(
+      `http://localhost:8021/api/builder/${builderId}/additional-info`,
+      additionalInfo
     );
     return response.data;
   } catch (error) {
