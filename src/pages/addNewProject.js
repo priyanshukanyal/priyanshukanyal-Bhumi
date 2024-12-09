@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { createProject } from "../apis/propertyApi"; // Assuming you have the API functions in api.js file
 import "bootstrap/dist/css/bootstrap.min.css"; // Importing Bootstrap CSS
 import ViewProperties from "../components/ProjectList"; // Adjust the path as needed
+import { getAllBuilders } from "../apis/builderApi";
 
 const CreatePropertyForm = () => {
   const [formData, setFormData] = useState({
@@ -155,6 +156,23 @@ const CreatePropertyForm = () => {
     setFormData({ ...formData, media: updatedMedia });
   };
 
+  const [builders, setBuilders] = useState([]);
+
+  useEffect(() => {
+    const fetchbuilders = async () => {
+      const builderdata = await getAllBuilders();
+      console.log(builderdata);
+      setBuilders(builderdata);
+    };
+
+    fetchbuilders();
+  }, []);
+
+  // Handle the builder name change from the dropdown
+  const handleBuilderNameChange = (e) => {
+    setFormData({ ...formData, builderName: e.target.value });
+  };
+
   return (
     <div className="container mt-5">
       <h1>Welcome to the Property Management System</h1>
@@ -188,14 +206,19 @@ const CreatePropertyForm = () => {
 
         <div className="mb-3">
           <label className="form-label">Builder Name</label>
-          <input
-            type="text"
+          <select
             className="form-control"
             value={formData.builderName}
-            onChange={(e) =>
-              setFormData({ ...formData, builderName: e.target.value })
-            }
-          />
+            onChange={handleBuilderNameChange}
+            required
+          >
+            <option value="">Select Builder</option>
+            {builders.map((builder, index) => (
+              <option key={index} value={builder.id}>
+                {builder.builderCompleteName}
+              </option>
+            ))}
+          </select>
         </div>
 
         <div className="mb-3">
